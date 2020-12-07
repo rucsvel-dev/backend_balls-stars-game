@@ -6,7 +6,6 @@ import { IsBoolean, IsEmail, IsString } from 'class-validator';
 import {CoreEntity} from "../../common/entities/core.entity";
 
 
-// @InputType('UserInputType', { isAbstract: true })
 @Entity()
 export class User extends CoreEntity {
     @Column({ unique: true })
@@ -16,6 +15,10 @@ export class User extends CoreEntity {
     @Column({ select: false })
     @IsString()
     password: string;
+
+    @Column({ default: null })
+    @IsString()
+    googleId: string;
 
     @Column({ default: false })
     @IsBoolean()

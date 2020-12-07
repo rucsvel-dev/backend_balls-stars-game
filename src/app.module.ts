@@ -6,6 +6,7 @@ import * as Joi from 'joi';
 
 import { UsersModule } from './users/users.module';
 import {User} from "./users/entities/user.entity";
+import { JwtModule } from './jwt/jwt.module';
 
 @Module({
   imports: [
@@ -40,7 +41,11 @@ import {User} from "./users/entities/user.entity";
       ],
     }),
     ScheduleModule.forRoot(),
-    UsersModule
+    JwtModule.forRoot({
+      privateKey: process.env.PRIVATE_KEY,
+    }),
+    UsersModule,
+    JwtModule
   ],
   controllers: [],
   providers: [],

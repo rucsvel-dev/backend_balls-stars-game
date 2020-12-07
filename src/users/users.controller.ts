@@ -1,4 +1,4 @@
-import {Controller, Get} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 
 import { UsersService } from './users.service';
 
@@ -12,5 +12,15 @@ export class UsersController {
     @Get()
     getAllUsers(){
         return this.usersService.getAllUsers();
+    }
+
+    @Post('createUserByEmail')
+    createUser(@Body() createUserBody){
+        return this.usersService.createUserByEmail(createUserBody);
+    }
+
+    @Post('googleConnect')
+    googleConnect(@Body() createUserBody){
+        return this.usersService.googleConnect(createUserBody);
     }
 }
