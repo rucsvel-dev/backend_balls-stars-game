@@ -10,7 +10,7 @@ export class JwtMiddleware implements NestMiddleware {
         private readonly usersService: UsersService,
     ) {}
     async use(req: Request, res: Response, next: NextFunction) {
-        console.log(req.headers)
+        // console.log(req.headers)
         next();
     }
 }

@@ -3,11 +3,13 @@ import {InjectRepository} from "@nestjs/typeorm";
 
 import {User} from "./entities/user.entity";
 import {Repository} from "typeorm";
+import {JwtService} from "../jwt/jwt.service";
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        private readonly jwtService: JwtService,
     ) {}
 
     async getAllUsers(){
@@ -37,7 +39,7 @@ export class UsersService {
             if (exists) {
                 return { ok: false, error: 'There is a user with that email already' };
             }
-            const user = await this.usersRepository.save(
+            await this.usersRepository.save(
                 this.usersRepository.create(createUserBody),
             );
             return { ok: true };
@@ -50,8 +52,8 @@ export class UsersService {
         try {
             const exists = await this.usersRepository.findOne({ email: createUserBody.email });
             if (exists) {
-                // do connect google
-                return { ok: false, error: 'There is a user with that email already' };
+                const token = this.jwtService.sign(createUserBody.email)
+                return { ok: false, token };
             } else{
                 const user = await this.usersRepository.save(
                     this.usersRepository.create(createUserBody),

@@ -1,6 +1,7 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
 
 import { UsersService } from './users.service';
+import {AuthGuard} from "../auth/auth.guard";
 
 @Controller('users')
 export class UsersController {
@@ -10,6 +11,7 @@ export class UsersController {
     }
 
     @Get()
+    @UseGuards(AuthGuard)
     getAllUsers(){
         return this.usersService.getAllUsers();
     }
