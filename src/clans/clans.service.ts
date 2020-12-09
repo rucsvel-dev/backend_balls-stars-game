@@ -4,7 +4,7 @@ import {User} from "../users/entities/user.entity";
 import {Repository} from "typeorm";
 import {JwtService} from "../jwt/jwt.service";
 import {Clan} from "./entities/clan.entity";
-import {CreateClanDto, CreateClanOutput} from "./dtos/create-account.dto";
+import {CreateClanDto, CreateClanOutput} from "./dtos/create-clan.dto";
 
 @Injectable()
 export class ClansService {

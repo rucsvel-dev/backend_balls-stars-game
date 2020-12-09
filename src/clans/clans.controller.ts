@@ -1,7 +1,7 @@
 import {Body, Controller, Post} from '@nestjs/common';
 
 import {ClansService} from "./clans.service";
-import {CreateClanDto} from "./dtos/create-account.dto";
+import {CreateClanDto} from "./dtos/create-clan.dto";
 
 @Controller('clans')
 export class ClansController {
