@@ -5,6 +5,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { IsBoolean, IsEmail, IsString } from 'class-validator';
 import {CoreEntity} from "../../common/entities/core.entity";
 import {Clan} from "../../clans/entities/clan.entity";
+import {ClanRequest} from "../../clans/entities/clanRequest.entity";
 
 
 @Entity()
@@ -25,10 +26,15 @@ export class User extends CoreEntity {
     @IsBoolean()
     verified: boolean;
 
-    @Column({ default: null })
     @ManyToOne(
         type => Clan,
         clan => clan.members
     )
     clan: Clan
+
+    @OneToMany(
+        type => ClanRequest,
+        clanRequests => clanRequests.user
+    )
+    clanRequests: ClanRequest[]
 }

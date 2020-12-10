@@ -1,17 +1,16 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
-import { InternalServerErrorException } from '@nestjs/common';
-import { IsBoolean, IsEmail, IsString } from 'class-validator';
-import {CoreEntity} from "../../common/entities/core.entity";
-import {User} from "../../users/entities/user.entity";
-import {ClanRequest} from "./clanRequest.entity";
+import {IsBoolean, IsNumber, IsString} from 'class-validator';
+import { CoreEntity } from "../../common/entities/core.entity";
+import { User } from "../../users/entities/user.entity";
+import { ClanRequest } from "./clanRequest.entity";
 
 
 @Entity()
 export class Clan extends CoreEntity {
     @Column({ unique: true })
-    @IsString()
-    owner: string;
+    @IsNumber()
+    ownerId: number;
 
     @Column({ unique: true })
     @IsString()
@@ -29,14 +28,12 @@ export class Clan extends CoreEntity {
     @IsBoolean()
     isPublic:boolean
 
-    @Column()
     @OneToMany(
         type => User,
         user => user.clan
     )
     members: User[]
 
-    @Column()
     @OneToMany(
         type => ClanRequest,
         clanRequest => clanRequest.clan

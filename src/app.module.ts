@@ -9,6 +9,8 @@ import {User} from "./users/entities/user.entity";
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { ClansModule } from './clans/clans.module';
+import {Clan} from "./clans/entities/clan.entity";
+import {ClanRequest} from "./clans/entities/clanRequest.entity";
 
 @Module({
   imports: [
@@ -40,6 +42,8 @@ import { ClansModule } from './clans/clans.module';
           process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'test',
       entities: [
         User,
+        Clan,
+        ClanRequest
       ],
     }),
     ScheduleModule.forRoot(),
