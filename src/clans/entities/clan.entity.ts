@@ -4,6 +4,7 @@ import {IsBoolean, IsNumber, IsString} from 'class-validator';
 import { CoreEntity } from "../../common/entities/core.entity";
 import { User } from "../../users/entities/user.entity";
 import { ClanRequest } from "./clanRequest.entity";
+import {ClanMessage} from "./clanMessage.entity";
 
 
 @Entity()
@@ -39,4 +40,10 @@ export class Clan extends CoreEntity {
         clanRequest => clanRequest.clan
     )
     requests: ClanRequest[]
+
+    @OneToMany(
+        type => ClanMessage,
+        clanMessage => clanMessage.clan
+    )
+    messages: ClanMessage[]
 }

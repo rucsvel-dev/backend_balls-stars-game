@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { ClansModule } from './clans/clans.module';
 import {Clan} from "./clans/entities/clan.entity";
 import {ClanRequest} from "./clans/entities/clanRequest.entity";
+import {ClanMessage} from "./clans/entities/clanMessage.entity";
 
 @Module({
   imports: [
@@ -43,7 +44,8 @@ import {ClanRequest} from "./clans/entities/clanRequest.entity";
       entities: [
         User,
         Clan,
-        ClanRequest
+        ClanRequest,
+        ClanMessage
       ],
     }),
     ScheduleModule.forRoot(),

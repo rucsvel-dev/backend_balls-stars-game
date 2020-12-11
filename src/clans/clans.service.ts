@@ -4,15 +4,44 @@ import {User} from "../users/entities/user.entity";
 import {Repository} from "typeorm";
 import {Clan} from "./entities/clan.entity";
 import {CreateClanDto, CreateClanOutput} from "./dtos/create-clan.dto";
-import {JoinToClanDto, JoinToClanOutput} from "./dtos/joinToClan.dto";
+import {JoinToClanDto, JoinToClanOutput} from "./dtos/join-to-clan.dto";
 import {ClanRequest} from "./entities/clanRequest.entity";
+import {GetClansOutput} from "./dtos/get-clans.dto";
+import {SendClanMessageDto, SendClanMessageOutput} from "./dtos/send-clan-message.dto";
+import {ClanMessage} from "./entities/clanMessage.entity";
 
 @Injectable()
 export class ClansService {
     constructor(
         @InjectRepository(Clan) private readonly clansRepository: Repository<Clan>,
-        @InjectRepository(Clan) private readonly clanRequestsRepository: Repository<ClanRequest>,
-    ) {
+        @InjectRepository(ClanRequest) private readonly clanRequestsRepository: Repository<ClanRequest>,
+        @InjectRepository(ClanMessage) private readonly clanMessagesRepository: Repository<ClanMessage>,
+    ) {}
+
+    async getClans(): Promise<GetClansOutput>{
+        try {
+            const clans = await this.clansRepository.find();
+            return { ok: true, clans }
+        }catch (err){
+            return { ok: false, error: 'Could not get clans' }
+        }
+    }
+
+    async sendClanMessage(
+        sendClanMessageDto: SendClanMessageDto,
+        user: User
+    ): Promise<SendClanMessageOutput>{
+        try {
+            const clan = user.clan;
+            const message = await this.clanMessagesRepository.save(
+                this.clanMessagesRepository.create({ clan, user, message: sendClanMessageDto.message }),
+            );
+            clan.messages.push(message);
+            await this.clansRepository.save(clan);
+            return { ok: true, message}
+        }catch(err){
+            return { ok: false, error: 'Could not send clan message'}
+        }
     }
 
     async createClan(
