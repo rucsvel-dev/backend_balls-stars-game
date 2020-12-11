@@ -4,6 +4,9 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "./entities/user.entity";
 import {Repository} from "typeorm";
 import {JwtService} from "../jwt/jwt.service";
+import {GetAllUsersOutput} from "./dtos/get-all-users.dto";
+import {GetAllUsersDto} from "./dtos/create-user-by-email.dto";
+import {GoogleConnectDto, GoogleConnectOutput} from "./dtos/google-connect.dto";
 
 @Injectable()
 export class UsersService {
@@ -12,7 +15,7 @@ export class UsersService {
         private readonly jwtService: JwtService,
     ) {}
 
-    async getAllUsers(){
+    async getAllUsers(): Promise<GetAllUsersOutput>{
         try {
             const users = await this.usersRepository.find();
             return { ok: true, users }
@@ -33,14 +36,14 @@ export class UsersService {
         }
     }
 
-    async createUserByEmail(createUserBody){
+    async createUserByEmail(getAllUsersDto: GetAllUsersDto): Promise<GetAllUsersOutput>{
         try {
-            const exists = await this.usersRepository.findOne({ email: createUserBody.email });
+            const exists = await this.usersRepository.findOne({ email: getAllUsersDto.email });
             if (exists) {
                 return { ok: false, error: 'There is a user with that email already' };
             }
             await this.usersRepository.save(
-                this.usersRepository.create(createUserBody),
+                this.usersRepository.create(getAllUsersDto),
             );
             return { ok: true };
         }catch (err){
@@ -48,15 +51,15 @@ export class UsersService {
         }
     }
 
-    async googleConnect(createUserBody){
+    async googleConnect(googleConnectDto: GoogleConnectDto): Promise<GoogleConnectOutput>{
         try {
-            const exists = await this.usersRepository.findOne({ email: createUserBody.email });
-            if (exists) {
-                const token = this.jwtService.sign(createUserBody.email)
+            const existsUser = await this.usersRepository.findOne({ email: googleConnectDto.email });
+            if (existsUser) {
+                const token = this.jwtService.sign(existsUser.id)
                 return { ok: false, token };
             } else{
                 const user = await this.usersRepository.save(
-                    this.usersRepository.create(createUserBody),
+                    this.usersRepository.create(googleConnectDto),
                 );
             }
             return { ok: true };
