@@ -7,6 +7,7 @@ import {CoreEntity} from "../../common/entities/core.entity";
 import {Clan} from "../../clans/entities/clan.entity";
 import {ClanRequest} from "../../clans/entities/clanRequest.entity";
 import {ClanMessage} from "../../clans/entities/clanMessage.entity";
+import {Hero} from "../../heroes/entities/hero.entity";
 
 
 @Entity()
@@ -44,4 +45,10 @@ export class User extends CoreEntity {
         clanMessage => clanMessage.user
     )
     clanMessages: ClanMessage[]
+
+    @OneToMany(
+        type => Hero,
+        hero => hero.user
+    )
+    heroes: Hero[]
 }

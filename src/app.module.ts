@@ -12,6 +12,8 @@ import { ClansModule } from './clans/clans.module';
 import {Clan} from "./clans/entities/clan.entity";
 import {ClanRequest} from "./clans/entities/clanRequest.entity";
 import {ClanMessage} from "./clans/entities/clanMessage.entity";
+import { HeroesModule } from './heroes/heroes.module';
+import {Hero} from "./heroes/entities/hero.entity";
 
 @Module({
   imports: [
@@ -45,7 +47,8 @@ import {ClanMessage} from "./clans/entities/clanMessage.entity";
         User,
         Clan,
         ClanRequest,
-        ClanMessage
+        ClanMessage,
+        Hero
       ],
     }),
     ScheduleModule.forRoot(),
@@ -55,7 +58,8 @@ import {ClanMessage} from "./clans/entities/clanMessage.entity";
     UsersModule,
     JwtModule,
     AuthModule,
-    ClansModule
+    ClansModule,
+    HeroesModule
   ],
   controllers: [],
   providers: [],

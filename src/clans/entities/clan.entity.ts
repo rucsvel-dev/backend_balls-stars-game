@@ -17,7 +17,7 @@ export class Clan extends CoreEntity {
     @IsString()
     name: string;
 
-    @Column({ select: false })
+    @Column()
     @IsString()
     description: string;
 
