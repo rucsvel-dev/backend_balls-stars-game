@@ -14,6 +14,7 @@ import {ClanRequest} from "./clans/entities/clanRequest.entity";
 import {ClanMessage} from "./clans/entities/clanMessage.entity";
 import { HeroesModule } from './heroes/heroes.module';
 import {Hero} from "./heroes/entities/hero.entity";
+import { BattlesModule } from './battles/battles.module';
 
 @Module({
   imports: [
@@ -59,7 +60,8 @@ import {Hero} from "./heroes/entities/hero.entity";
     JwtModule,
     AuthModule,
     ClansModule,
-    HeroesModule
+    HeroesModule,
+    BattlesModule
   ],
   controllers: [],
   providers: [],
