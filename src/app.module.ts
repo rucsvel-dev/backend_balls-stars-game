@@ -15,6 +15,7 @@ import {ClanMessage} from "./clans/entities/clanMessage.entity";
 import { HeroesModule } from './heroes/heroes.module';
 import {Hero} from "./heroes/entities/hero.entity";
 import { BattlesModule } from './battles/battles.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -61,7 +62,8 @@ import { BattlesModule } from './battles/battles.module';
     AuthModule,
     ClansModule,
     HeroesModule,
-    BattlesModule
+    BattlesModule,
+    InventoryModule
   ],
   controllers: [],
   providers: [],

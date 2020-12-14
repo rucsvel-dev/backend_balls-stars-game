@@ -1,7 +1,5 @@
-import {BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany} from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import {Column, Entity, ManyToOne, OneToMany, OneToOne} from 'typeorm';
 
-import { InternalServerErrorException } from '@nestjs/common';
 import {IsBoolean, IsEmail, IsNumber, IsString} from 'class-validator';
 import {CoreEntity} from "../../common/entities/core.entity";
 import {Clan} from "../../clans/entities/clan.entity";
@@ -9,6 +7,7 @@ import {ClanRequest} from "../../clans/entities/clanRequest.entity";
 import {ClanMessage} from "../../clans/entities/clanMessage.entity";
 import {Hero} from "../../heroes/entities/hero.entity";
 import {Battle} from "../../battles/entities/battle.entity";
+import {Inventory} from "../../inventory/entities/inventory.entity";
 
 
 @Entity()
@@ -51,6 +50,12 @@ export class User extends CoreEntity {
 
     @Column()
     friends: User[]
+
+    @OneToOne(
+        type => Inventory,
+        inventory => inventory.user
+    )
+    inventory: Inventory
 
     @ManyToOne(
         type => Clan,
