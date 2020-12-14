@@ -31,11 +31,26 @@ export class User extends CoreEntity {
 
     @Column({default: 0})
     @IsNumber()
+    rating: number
+
+    @Column({default: 0})
+    @IsNumber()
+    maxRating: number
+
+    @Column({default: 0})
+    @IsNumber()
     coins: number
 
     @Column({default: 0})
     @IsNumber()
     gems: number
+
+    @Column({default: 1})
+    @IsNumber()
+    level: number
+
+    @Column()
+    friends: User[]
 
     @ManyToOne(
         type => Clan,
