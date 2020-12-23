@@ -7,6 +7,7 @@ import {JwtService} from "../jwt/jwt.service";
 import {GetAllUsersOutput} from "./dtos/get-all-users.dto";
 import {GetAllUsersDto} from "./dtos/create-user-by-email.dto";
 import {GoogleConnectDto, GoogleConnectOutput} from "./dtos/google-connect.dto";
+import {GetMeOutput} from "./dtos/get-me-output.dto";
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,14 @@ export class UsersService {
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         private readonly jwtService: JwtService,
     ) {}
+
+    async getMe(user: User): Promise<GetMeOutput>{
+        try {
+            return {ok: true, user}
+        }catch (err){
+            return {ok: false, error: ''}
+        }
+    }
 
     async getAllUsers(): Promise<GetAllUsersOutput>{
         try {

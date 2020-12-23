@@ -16,6 +16,10 @@ import { HeroesModule } from './heroes/heroes.module';
 import {Hero} from "./heroes/entities/hero.entity";
 import { BattlesModule } from './battles/battles.module';
 import { InventoryModule } from './inventory/inventory.module';
+import {Inventory} from "./inventory/entities/inventory.entity";
+import {Item} from "./inventory/entities/item.entity";
+import {Battle} from "./battles/entities/battle.entity";
+import {BattleMode} from "./battles/entities/battleMode.entity";
 
 @Module({
   imports: [
@@ -50,7 +54,11 @@ import { InventoryModule } from './inventory/inventory.module';
         Clan,
         ClanRequest,
         ClanMessage,
-        Hero
+        Hero,
+        Inventory,
+        Item,
+        Battle,
+        BattleMode
       ],
     }),
     ScheduleModule.forRoot(),

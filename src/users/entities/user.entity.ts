@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, OneToMany, OneToOne} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne} from 'typeorm';
 
 import {IsBoolean, IsEmail, IsNumber, IsString} from 'class-validator';
 import {CoreEntity} from "../../common/entities/core.entity";
@@ -48,13 +48,14 @@ export class User extends CoreEntity {
     @IsNumber()
     level: number
 
-    @Column()
-    friends: User[]
+    // @Column()
+    // friends: User[]
 
     @OneToOne(
         type => Inventory,
         inventory => inventory.user
     )
+    @JoinColumn()
     inventory: Inventory
 
     @ManyToOne(

@@ -5,12 +5,21 @@ import {AuthGuard} from "../auth/auth.guard";
 import {GetAllUsersOutput} from "./dtos/get-all-users.dto";
 import {GetAllUsersDto} from "./dtos/create-user-by-email.dto";
 import {GoogleConnectDto} from "./dtos/google-connect.dto";
+import {GetMeOutput} from "./dtos/get-me-output.dto";
+import {GetUser} from "../auth/get-user.decorator";
+import {User} from "./entities/user.entity";
 
 @Controller('users')
 export class UsersController {
     constructor(
         private readonly usersService: UsersService
     ) {
+    }
+
+    @Get('me')
+    @UseGuards(AuthGuard)
+    getMe(@GetUser() user: User): Promise<GetMeOutput>{
+        return this.usersService.getMe(user);
     }
 
     @Get()
